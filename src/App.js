@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Detail from "./components/Detail";
+import Login from "./components/Login";
 
 import {
   BrowserRouter as Router,
@@ -22,8 +23,12 @@ function App() {
         <Header />
         <Routes>
 
-          {/* ANything inside routes/switch can be changed */}
+          {/* Anything inside routes/switch can be changed */}
           
+
+          <Route path="/login">
+            <Route path='/login' element={<Login />} />
+          </Route>
           <Route path="/detail">
             <Route path='/detail' element={<Detail />} />
           </Route>
