@@ -1,16 +1,40 @@
-import React from 'react'
+import React , {useEffect, useState} from 'react'
 import styled from "styled-components"
+import { useParams} from "react-router-dom";
+import  db  from "../firebase";
+
 
 
 function Detail() {
+    const { id } = useParams();
+    const [ movie, setMovie ] = useState();
+
+    useEffect(() => {
+        //Grab the movie info from DB
+        db.collection("movies")
+        .doc(id) //Grabbing the movie with specific id
+        .get()
+        .then((doc)=>{
+            if(doc.exists){
+                //save the movies data in state becuase we are changing it for every movie. If we have to change globally for all movies same we use than redux for saving
+                setMovie(doc.data());
+            } else {
+                //redirect to home page
+               
+            }
+        })
+    }, []); //This empty bracket means whenever called the functionality reloads the componnet
+
+    console.log("Movie is", movie);
+
     return (
         <Container>
             <Background>
-                <img src="images/disneypixarbao.jpg" />
+                <img src="/images/disneypixarbao.jpg" />
             </Background>
 
             <ImageTitle>
-                <img src="images/disney-logo.png"></img>
+                <img src="/images/disney-logo.png"></img>
             </ImageTitle>
 
             <Controls>
@@ -154,4 +178,6 @@ const Description = styled.div`
   font-size: 20px;
   padding: 16px 0px;
   color: rgb(249, 249, 249);
+  max-width: 760px;
 `;
+
