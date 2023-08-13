@@ -1,60 +1,42 @@
 import React from 'react'
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { selectMovies } from '../features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 
-function Movie() {
+function Movies() {
+
+  //we went to home component grab the data fromdb than dispatch it after performing action and sent to store using redux and now we are again grabbing it form this store
+  const movies = useSelector(selectMovies);
+
+  //console.log("This is movie", movies);
+  //console.log(movies);
+
   return (
     <Container>
       <h4>Recommended for You</h4>
       <Content>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        <Wrap>
-          <img 
-            src="https://th.bing.com/th/id/OIP.Q4Q81PvH3VYSbJCh1BQ6aQAAAA?w=280&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7">
-          </img>
-        </Wrap>
-        
+        { movies && 
+          movies.map((movie)=>(
+            <Wrap>
+              <Link to={`/detail/${movie.id}`}> {/*/*It will link the detail & individual movie id loop by loop*/}
+                <img src={movie.cardImg} alt="Movies"/>
+              </Link> 
+            </Wrap>
+          ))
+        }
       </Content>
     </Container>
   )
 }
 
-export default Movie
+export default Movies
 
 const Container = styled.div`
+  h4 {
+    font-size: 20px;
+    font-family: consolas;
+  }
 
 `
 
